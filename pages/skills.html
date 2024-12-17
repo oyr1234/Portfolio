@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Skills Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f7f6;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .skills-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .skills-section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .skills-section h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .skill-container {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .skill-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-item {
+            background-color: var(--card-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .skill-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .skill-percentage {
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.42, 0, 0.58, 1);
+        }
+
+        @media (max-width: 768px) {
+            .skills-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .skill-item {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="logo">OMAR EZZEDDINE</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="/pages/parcours.html">Academics</a></li>
+                <li><a href="/pages/skills.html">skills</a></li>
+                <li><a href="/pages/stages.html">Interships</a></li>
+                <li><a href="/pages/projets.html">Projets</a></li>
+                <li><a href="/pages/hobbies.html">Hobbies</a></li>
+                <li><a href="/pages/Quiz.html">quiz</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="skills-section">
+        <h2>Professional Skills</h2>
+        
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Python programming</span>
+                    <span class="skill-percentage">85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="85"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Pandas</span>
+                    <span class="skill-percentage">90%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="90"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Numpy</span>
+                    <span class="skill-percentage">80%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="80"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Backend Development</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Numpy</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Yolo</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">open-cv</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">sklearn</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">React native</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skill-container">
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-title">Html/css/javascript</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" data-progress="75"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <script>
+        function checkSkills() {
+            const skillContainers = document.querySelectorAll('.skill-container');
+            
+            skillContainers.forEach(container => {
+                const position = container.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (position < windowHeight * 0.8) {
+                    container.classList.add('visible');
+                    
+                    const progressBar = container.querySelector('.progress');
+                    const progress = progressBar.getAttribute('data-progress');
+                    progressBar.style.width = `${progress}%`;
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkSkills);
+        window.addEventListener('load', checkSkills);
+    </script>
+</body>
+</html>

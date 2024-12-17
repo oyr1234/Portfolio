@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sur l'Intelligence Artificielle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f9f9ff;
+            --text-color: #2c3e50;
+            --gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 15px 45px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow-subtle);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .navbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .quiz-section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .quiz-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background: #f5f5f5;
+        }
+
+        .option.selected {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="logo">OMAR EZZEDDINE</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="/pages/parcours.html">Academics</a></li>
+                <li><a href="/pages/skills.html">skills</a></li>
+                <li><a href="/pages/stages.html">Interships</a></li>
+                <li><a href="/pages/projets.html">Projets</a></li>
+                <li><a href="/pages/hobbies.html">Hobbies</a></li>
+                <li><a href="/pages/Quiz.html">quiz</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="quiz-section container">
+        <div class="quiz-container">
+            <h2 class="section-title">Quiz sur l'<span class="highlight">Intelligence Artificielle</span></h2>    
+            <div id="quiz">
+                <div class="question">
+                    <h3>What does AI primarily aim to do</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Automate tasks without human intervention</div>
+                        <div class="option" data-value="b">Replace humans entirely</div>
+                        <div class="option" data-value="c"> Create random decisions</div>
+                        <div class="option" data-value="d">Solve math problems only</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>Which algorithm is used for classification problems ?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">K-Means</div>
+                        <div class="option" data-value="b">Decision Trees</div>
+                        <div class="option" data-value="c">Gradient Descent</div>
+                        <div class="option" data-value="d">Breadth-First Search</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> Which of the following is NOT a type of machine learning ?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a"> Supervised Learning</div>
+                        <div class="option" data-value="b">Unsupervised Learning</div>
+                        <div class="option" data-value="c">Reinforcement Learning</div>
+                        <div class="option" data-value="d"> Structured Learning</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> What is a common evaluation metric for classification problems?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Mean Squared Error</div>
+                        <div class="option" data-value="b">Accuracy</div>
+                        <div class="option" data-value="c">Cross-Entropy Loss</div>
+                        <div class="option" data-value="d">Jaccard Index</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> What does the ReLU activation function do?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Maps all input values to a range between 0 and 1</div>
+                        <div class="option" data-value="b">Replaces all negative values with 0</div>
+                        <div class="option" data-value="c">Converts probabilities into class labels</div>
+                        <div class="option" data-value="d">Increases the learning rate</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>  In Natural Language Processing (NLP), what is "tokenization"?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Converting words into numbers</div>
+                        <div class="option" data-value="b">Splitting text into smaller units like words or sentences</div>
+                        <div class="option" data-value="c">Generating random numbers</div>
+                        <div class="option" data-value="d">Compressing text into smaller files</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> What does "backpropagation" do in neural networks?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Creates new layers in the network</div>
+                        <div class="option" data-value="b"> Updates weights by propagating the error backward</div>
+                        <div class="option" data-value="c">Splits data into training and testing sets</div>
+                        <div class="option" data-value="d">Reduces the size of the network</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> Which of the following is an example of unsupervised learning ?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Predicting house prices</div>
+                        <div class="option" data-value="b">Clustering customers based on behavior</div>
+                        <div class="option" data-value="c">Classifying emails as spam or not spam</div>
+                        <div class="option" data-value="d">Identifying handwritten digits</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>  Which term describes AI systems that can learn and adapt without explicit reprogrammingg ?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">General AI</div>
+                        <div class="option" data-value="b">Machine Learning</div>
+                        <div class="option" data-value="c">Supervised Learning</div>
+                        <div class="option" data-value="d">Rule-Based Systems</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3> whats the diffrnece between Objectd etection and classification in Computer vision?</h3>
+                    <div class="options">
+                        <div class="option" data-value="a">Object detection identifies and locates objects in an image, while classification only labels the image.</div>
+                        <div class="option" data-value="b">Classification involves detecting objects and their locations, while object detection only labels the image</div>
+                        <div class="option" data-value="c">Object detection processes videos, while classification works only with images.</div>
+                        <div class="option" data-value="d">There is no difference; both are the same</div>
+                    </div>
+                </div>
+
+                <button class="submit-btn">Soumettre les réponses</button>
+                <div class="result" id="result"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2024 Quiz Intelligence Artificielle
+    </footer>
+
+    <script>
+        // Quiz Interaction
+        const options = document.querySelectorAll('.option');
+        const submitBtn = document.querySelector('.submit-btn');
+        const resultDiv = document.getElementById('result');
+
+        // Option Selection
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove selected from all options in the same question
+                option.parentElement.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+            });
+        });
+
+        // Submit Answers
+        submitBtn.addEventListener('click', () => {
+            const selectedOptions = document.querySelectorAll('.option.selected');
+            
+            if (selectedOptions.length < 3) {
+                resultDiv.textContent = 'Veuillez répondre à toutes les questions';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            // Correct answers
+            const correctAnswers = {
+                0: 'a',
+                1: 'b',
+                2: 'd',
+                3: 'b',
+                4:'b',
+                5:'b',
+                6:'b',
+                7:'b',
+                8:'b',
+                9:'a',
+            };
+
+            let score = 0;
+            selectedOptions.forEach((option, index) => {
+                if (option.getAttribute('data-value') === correctAnswers[index]) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / 10) * 100;
+            
+            resultDiv.innerHTML = `
+                Votre score : ${score}/10 <br>
+                ${percentage}% - 
+                ${percentage === 100 ? 'Excellent !' : 
+                  percentage >= 66 ? 'Très bien !' : 
+                  percentage >= 33 ? 'Pas mal, continuez à apprendre !' : 
+                  'Continuez à vous renseigner sur l\'IA'}
+            `;
+            resultDiv.style.color = percentage === 100 ? 'green' : percentage >= 66 ? '#4CAF50' : 'orange';
+        });
+
+        // Visibility Animation
+        function checkVisibility() {
+            const quizContainer = document.querySelector('.quiz-container');
+            const elementPosition = quizContainer.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (elementPosition < windowHeight * 0.75) {
+                quizContainer.classList.add('visible');
+            }
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+    </script>
+</body>
+</html>
